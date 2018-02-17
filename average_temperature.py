@@ -9,19 +9,18 @@ import osa
 import re
 
 
-currencies = "currencies"
+files = "files"
 current_dir = os.path.dirname(os.path.abspath(__file__))
-files_dir = os.path.join(current_dir, currencies)
-path_to_file_temps = os.path.join(files_dir, "temps.txt")
+path_to_file_temps = os.path.join(current_dir, files, "temps.txt")
 
 
 client = osa.Client('http://www.webservicex.net/ConvertTemperature.asmx?WSDL')
 
 
-def convert_temperature_in_celsius(Temperature, FromUnit='degreeFahrenheit', ToUnit='degreeCelsius'):
+def convert_temperature_in_celsius(Temperature, FromUnit, ToUnit):
     return client.service.ConvertTemp(Temperature, FromUnit, ToUnit)
 
-def get_average_temperature_in_celsius(path_to_file):
+def get_average_temperature_in_celsius(path_to_file_temps):
     with open(path_to_file_temps, encoding="utf-8") as f:
         text = f.read()
         temperature_list_celsius = []
