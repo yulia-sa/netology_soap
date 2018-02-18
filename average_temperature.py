@@ -17,8 +17,9 @@ path_to_file_temps = os.path.join(current_dir, files, "temps.txt")
 client = osa.Client('http://www.webservicex.net/ConvertTemperature.asmx?WSDL')
 
 
-def convert_temperature_in_celsius(Temperature, FromUnit, ToUnit):
-    return client.service.ConvertTemp(Temperature, FromUnit, ToUnit)
+def convert_temperature_in_celsius(temperature, from_unit, to_unit):
+    return client.service.ConvertTemp(temperature, from_unit, to_unit)
+
 
 def get_average_temperature_in_celsius(path_to_file_temps):
     with open(path_to_file_temps, encoding="utf-8") as f:
@@ -26,9 +27,9 @@ def get_average_temperature_in_celsius(path_to_file_temps):
         temperature_list_celsius = []
         temperature_list_fahrenheit = re.findall('\d+', text)
         for temperature_in_fahrenheit in temperature_list_fahrenheit:
-            temperature_in_celsius = convert_temperature_in_celsius(Temperature=temperature_in_fahrenheit, 
-                                                                    FromUnit='degreeFahrenheit', 
-                                                                    ToUnit='degreeCelsius')
+            temperature_in_celsius = convert_temperature_in_celsius(temperature=temperature_in_fahrenheit,
+                                                                    from_unit='degreeFahrenheit',
+                                                                    to_unit='degreeCelsius')
             temperature_list_celsius.append(temperature_in_celsius)
 
         average_temperature_in_celsius = sum(temperature_list_celsius)/len(temperature_list_celsius)
